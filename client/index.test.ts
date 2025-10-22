@@ -1,5 +1,4 @@
 import { test } from "node:test";
-import assert from "node:assert/strict";
 import { LiteSVM } from "litesvm";
 import {
 	PublicKey,
@@ -17,7 +16,7 @@ test("one transfer", () => {
 	svm.airdrop(payer.publicKey, BigInt(LAMPORTS_PER_SOL));
 	const dataAccount = new Keypair();
 	const blockhash = svm.latestBlockhash();
-	const transferLamports = 1_000_000n;
+	const transferLamports = 1_000_000;
 	const ixs = [
 		SystemProgram.createAccount({
 			fromPubkey: payer.publicKey,
@@ -33,5 +32,8 @@ test("one transfer", () => {
 	tx.sign(payer);
 	svm.sendTransaction(tx);
 	const balanceAfter = svm.getBalance(dataAccount.publicKey);
-	expect(balanceAfter).toBe(svm.minimumBalanceForRentExemption(BigInt(4)))
+	expect(balanceAfter).toBe(svm.minimumBalanceForRentExemption(BigInt(4))
+	const tx1 = new Transaction();
+	
+)
 });
