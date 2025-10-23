@@ -18,6 +18,9 @@ struct OnChainData{
  )->ProgramResult{
     let mut iter = accounts.iter();
     let data_account = next_account_info(&mut iter)?;
+    if(data_account.is_signer != true){
+        return Err(solana_program::program_error::ProgramError::MissingRequiredSignature)
+    }
     let mut counter =OnChainData::try_from_slice(&data_account.data.borrow_mut())?;
     if counter.count == 0{
         counter.count =1;

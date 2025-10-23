@@ -6,6 +6,7 @@ import {
 	SystemProgram,
 	Keypair,
 	LAMPORTS_PER_SOL,
+	TransactionInstruction,
 } from "@solana/web3.js";
 
 test("one transfer", () => {
@@ -28,12 +29,30 @@ test("one transfer", () => {
 	];
 	const tx = new Transaction();
 	tx.recentBlockhash = blockhash;
+	tx.feePayer = payer.publicKey;
 	tx.add(...ixs);
-	tx.sign(payer);
+	tx.sign(payer,dataAccount);
 	svm.sendTransaction(tx);
 	const balanceAfter = svm.getBalance(dataAccount.publicKey);
-	expect(balanceAfter).toBe(svm.minimumBalanceForRentExemption(BigInt(4))
-	const tx1 = new Transaction();
+	expect(balanceAfter).toBe(svm.minimumBalanceForRentExemption(BigInt(4));
 	
-)
-});
+	
+	function  doublenum(){const ix2 =new TransactionInstruction({
+		keys :[
+			{pubkey:dataAccount.publicKey,isSigner:false,isWritable:true}
+		],
+		programId:contractPubKey,
+		data:Buffer.from("")
+	})
+	const blockhash1 = svm.latestBlockhash();
+		const tx2 = new Transaction();
+		tx2.recentBlockhash = blockhash1;
+		tx2.feePayer = payer.publicKey;
+		tx2.add(ix2);
+	    tx2.sign(payer);
+	    svm.sendTransaction(tx2);
+
+
+	}
+
+doublenum();
